@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     rose-pine-cursor
     my.manhattan
+    my.motomachi-patched
   ];
 
   programs.plasma = {
@@ -52,11 +53,12 @@
           "org.kde.plasma.marginsseparator"
 
           {
-            systemTray = {};
+            systemTray = {
+              items.shown = ["org.kde.plasma.notifications"];
+            };
           }
 
-          # todo: system tray, notifs, digital clock
-
+          { digitalClock = {}; }
         ];
       }
 
