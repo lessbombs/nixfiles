@@ -4,7 +4,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     # ./common.nix
-  ] ++ mylib.ls ../modules/nixos/client-mini;
+  ] ++ mylib.ls ../nixos/client-mini;
 
   home-manager = {
     useGlobalPkgs = true;
@@ -17,7 +17,7 @@
     users.${myvars.name} = {
       programs.home-manager.enable = true;
 
-      imports = mylib.ls ../modules/home/client-mini;
+      imports = mylib.ls ../home/client-mini;
 
       home = {
         username = myvars.name;
