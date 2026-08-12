@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-{ # todo: move some settings over to /modules/nixos/common
+{ # see also: /nixos/common/core.nix
   networking.networkmanager.enable = true;
 
   boot.loader = {
@@ -13,8 +13,7 @@
     timeout = 1;
   };
   
-  boot.initrd.systemd.enable = true;
-
+  # XanMod is a kernel distro with optimizations for desktop use
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   services.openssh = {
