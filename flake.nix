@@ -63,6 +63,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
     helium = { # todo: replace
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";

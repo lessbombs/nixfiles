@@ -1,6 +1,6 @@
-{ stdenvNoCC }:
+{ lib, stdenvNoCC }:
 
-stdenvNoCC.mkDerivation { # it's just breeze dark with purple highlights.
+stdenvNoCC.mkDerivation {
   pname = "manhattan";
   version = "0.0.1";
 
@@ -13,4 +13,12 @@ stdenvNoCC.mkDerivation { # it's just breeze dark with purple highlights.
     install -Dm644 $src $out/share/color-schemes/Manhattan.colors
     runHook postInstall
   '';
+
+
+  meta = {
+    description = "BreezeDark but purple";
+    homepage = "https://github.com/KDE/breeze/tree/master/colors";
+    license = lib.licenses.lgpl2Plus; # inherited from BreezeDark
+    platforms = lib.platforms.all;
+  };
 }
