@@ -1,0 +1,141 @@
+diff --git a/motomachi.py b/motomachi.py
+index 450a579..461af72 100644
+--- a/motomachi.py
++++ b/motomachi.py
+@@ -2,45 +2,48 @@
+ # -*- coding: utf-8 -*-
+ 
+ import fontforge
+-from datetime import date
+ 
+ # Inter のあるディレクトリのパス
+-inter_path = "./inter/static"
++inter_path = "./inter"
+ 
+-# M PLUS 1p のあるディレクトリのパス
++# M PLUS 1 のあるディレクトリのパス
+ mplus_path = "./mplus"
+ 
+-# Roboto のあるディレクトリのパス
+-roboto_path = "./roboto"
+-
+ # Motomachi を生成するディレクトリのパス
+ # 同じディレクトリに一時ファイルも生成される
+ motomachi_path = "./motomachi"
+ 
+ # フォントリスト
+-# Inter ファイル名, Roboto ファイル名, M PLUS 1p ファイル名, Motomachi ウェイト
+-font_list = [
+-    ("Inter-Light.ttf", "Roboto-Light.ttf", "MPLUS1p-Light.ttf", "Light"),
+-    ("Inter-Regular.ttf", "Roboto-Regular.ttf", "MPLUS1p-Regular.ttf", "Regular"),
+-    ("Inter-Medium.ttf", "Roboto-Medium.ttf", "MPLUS1p-Medium.ttf", "Medium"),
+-    ("Inter-Bold.ttf", "Roboto-Bold.ttf", "MPLUS1p-Bold.ttf", "Bold"),
+-    ("Inter-ExtraBold.ttf", "Roboto-Black.ttf", "MPLUS1p-ExtraBold.ttf", "Extrabold"),
+-]
++# Inter ファイル名, M PLUS 1 ファイル名, Motomachi ウェイト
++def build_font_list(
++    formats=("ttf", "otf"),
++    weights=("Thin", "ExtraLight", "Light", "Regular", "Medium",
++             "SemiBold", "Bold", "ExtraBold", "Black")
++):
++    return [
++        (
++            f"Inter-{weight}.{fmt}",
++            f"MPLUS1-{weight}.{fmt}",
++            weight,
++            fmt,
++        )
++        for fmt in formats
++        for weight in weights
++    ]
+ 
+ def main():
+     # 縦書き対応
+     fontforge.setPrefs('CoverageFormatsAllowed', 1)
+ 
+-    # バージョンを今日の日付から生成する
+-    today = date.today()
+-    version = "Motomachi-{0}".format(today.strftime("%Y%m%d"))
++    font_list = build_font_list()
++
++    version = "Version 2.000; 2026-04-08"
+ 
+-    for (it, rb, mp, weight) in font_list:
+-        it_path = "{0}/{1}".format(inter_path, it)
+-        rb_path = "{0}/{1}".format(roboto_path, rb)
+-        mp_path = "{0}/{1}".format(mplus_path, mp)
+-        mo_path = "{0}/Motomachi-{1}.ttf".format(motomachi_path, weight)
+-        generate_motomachi(it_path, rb_path, mp_path, mo_path, weight, version)
++    for (it, mp, weight, fmt) in font_list:
++        it_path = "{0}/{1}/{2}".format(inter_path, fmt, it)
++        mp_path = "{0}/{1}/{2}".format(mplus_path, fmt, mp)
++        mo_path = "{0}/Motomachi-{1}.{2}".format(motomachi_path, weight, fmt)
++        generate_motomachi(it_path, mp_path, mo_path, weight, version)
+ 
+ def motomachi_sfnt_names(weight, version):
+     return (
+@@ -49,7 +52,6 @@ def motomachi_sfnt_names(weight, version):
+          Motomachi: Copyright (c) 2022 yui87.
+          
+          Inter: Copyright (c) 2016- The Inter Project Authors.
+-         Roboto: Copyright (c) 2012- Google.
+          M+ OUTLINE FONTS: Copyright (C) 2002- M+ FONTS PROJECT.'''),
+         ('English (US)', 'Family', 'Motomachi {0}'.format(weight)),
+         ('English (US)', 'SubFamily', weight),
+@@ -70,44 +72,35 @@ def motomachi_gasp():
+         (65535, ('antialias', 'symmetric-smoothing')),
+     )
+ 
+-def generate_motomachi(it_path, rb_path, mp_path, mo_path, weight, version):
++def generate_motomachi(it_path, mp_path, mo_path, weight, version):
+     # Inter を開く
+     font = fontforge.open(it_path)
+ 
+-    # M PLUS 1p を開く
++    # M PLUS 1 を開く
+     mpfont = fontforge.open(mp_path)
+ 
+     # EM の大きさを 2048 に設定する
+     font.em = 2048
+     mpfont.em = 2048
+ 
+-    # M PLUS 1p をマージする
+-    font.mergeFonts(mp_path)
+-
+-    # Fancy Colon を Roboto からコピーする
+-    rbfont = fontforge.open(rb_path)
+-    
+-    # Fancy Colon をコピー
+-    rbfont.selection.select(0xee01)
+-    rbfont.copy()
+-    font.selection.select(0xee01)
+-    font.paste()
+-
+-    # Fancy Colon を U+A789 にコピー
+-    font.selection.select(0xee01)
+-    font.copy()
+-    font.selection.select(0xa789)
+-    font.paste()
++    # M PLUS 1 をマージする
++    font.mergeFonts(mpfont)
++    mpfont.close()
+ 
+     # フォント情報の設定
+     font.sfnt_names = motomachi_sfnt_names(weight, version)
+-    font.os2_vendor = "yui"
++    font.os2_vendor = "yui "
+ 
+     # Grid Fittingの設定
+     font.gasp = motomachi_gasp()
+ 
+-    # TTF の生成
++    font.fontname = f"Motomachi-{weight}"
++    font.familyname = "Motomachi"
++    font.fullname = f"Motomachi {weight}"
++
++    # TTFとOTFの生成
+     font.generate(mo_path, '', ('short-post', 'opentype', 'PfEd-lookups'))
++    font.close()
+ 
+ if __name__ == '__main__':
+     main()

@@ -5,11 +5,12 @@
 
   home.packages = with pkgs; [
     rose-pine-cursor
+    my.manhattan
   ];
 
   programs.plasma = {
     enable = true;
-    overrideConfig = true;
+    overrideConfig = true; # aiming for full reproducibility
 
     shortcuts = {
       plasmashell."activate application launcher" = ["Alt+F1" "Meta+Shift"];
@@ -27,7 +28,7 @@
         widgets = [
           {
             kickoff = {
-              icon = "nix-snowflake";
+              icon = "nix-snowflake-white";
               favoritesDisplayMode = "grid";
               applicationsDisplayMode = "list";
               compactDisplayStyle = true;
@@ -40,8 +41,8 @@
           {
             iconTasks = {
               launchers = [
-                # "applications:helium" # todo: what're the right .desktop entries
-                # "applications:ghostty"
+                "applications:helium.desktop"
+                "applications:com.mitchellh.ghostty.desktop"
                 "applications:org.kde.dolphin.desktop"
                 # codium
               ];
@@ -49,6 +50,10 @@
           }
 
           "org.kde.plasma.marginsseparator"
+
+          {
+            systemTray = {};
+          }
 
           # todo: system tray, notifs, digital clock
 

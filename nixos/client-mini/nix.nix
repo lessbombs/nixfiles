@@ -24,11 +24,12 @@
     config.allowUnfree = true;
 
     overlays = [ # todo: maybe we shouldn't dump our overlays here
-      (_final: prev: {
+      (final: prev: {
         unstable = import inputs.nixpkgs-unstable {
           system = prev.stdenv.hostPlatform.system;
           config = prev.config;
         };
+        my = import ../../pkgs { pkgs = final; };
         inherit (prev.lixPackageSets.stable)
           nixpkgs-review
           nix-eval-jobs
