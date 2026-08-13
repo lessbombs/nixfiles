@@ -11,29 +11,24 @@
         worldlimit = mylib.mkSys {
           hostname = "worldlimit";
           system = "x86_64-linux";
-          profile = "client-full";
           inherit mylib myvars;
         };
 
         vm-testing = mylib.mkSys {
           hostname = "vm-testing";
           system = "x86_64-linux";
-          profile = "client-full";
           inherit mylib myvars;
         };
         /*
         verdantpaths = mylib.mkSys {
           hostname = "verdantpaths";
           system = "x86_64-linux";
-          profile = "client-mini";
           inherit mylib myvars;
-        } // extraModules = [ ../profiles/extra/gaming.nix ];
-        # todo: figure out best way to declare addons to a profile, maybe /profiles/extra is stupid boilerplate
+        } 
 
         citrinewoods = mylib.mkSys { 
           hostname = "citrinewoods";
           system = "x86_64-linux";
-          profile = "client-full";
           inherit mylib myvars;
         };
         */

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-{ # see also: /nixos/common/core.nix
+{
   networking.networkmanager.enable = true;
 
   boot.loader = {
@@ -23,6 +23,8 @@
       KbdInteractiveAuthentication = false;
     };
   };
+
+  services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
     git

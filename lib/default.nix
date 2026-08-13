@@ -3,7 +3,6 @@
   mkSys = {
     hostname,
     system,
-    profile,
     mylib,
     myvars,
     extraModules ? []
@@ -21,8 +20,7 @@
         # since we don't specify filesystems in hardware-configuration.nix
         inputs.disko.nixosModules.disko 
 
-        (../hosts + "/${hostname}")
-        (../profiles + "/${profile}.nix")
+        (mylib.ls (../hosts + "/${hostname}"))
       ] ++ extraModules;
   };
 
