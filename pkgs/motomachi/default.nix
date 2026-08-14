@@ -14,7 +14,7 @@ let
     url = "https://github.com/coz-m/MPLUS_FONTS.git";
     rev = "06feee41806add15dfc4ce3b657026bd6afeb5ea";
     rootDir = "fonts/MPLUS1";
-    hash = lib.fakeHash;
+    hash = "sha256-0DdFhVFnxsvAHxUq92WZNxVx8QgMtq8W8G11YJuf5cE=";
   };
 
   # we need extras/ from the inter .zip for static fonts
@@ -30,7 +30,7 @@ in stdenvNoCC.mkDerivation {
     owner = "wing-land";
     repo = "motomachi-scripts";
     rev = "29615f849b2eb7bb39db50d905eac6e0b66fd4e1";
-    hash = lib.fakeHash;
+    hash = "sha256-5vfemgNtfe3hJYa9VU1u3QyAPy2Ggc3p5fjEwHQxN/g=";
   };
 
   patches = [ ./motomachi.patch ];
@@ -47,14 +47,10 @@ in stdenvNoCC.mkDerivation {
     export HOME="$TMPDIR/home"
     mkdir -p "$HOME"
 
-    mkdir -p inter/ttf inter/otf mplus motomachi
-
-    for weight in Thin ExtraLight Light Regular Medium SemiBold Bold ExtraBold Black; do
-      cp "${interStatic}/share/fonts/truetype/Inter-$weight.ttf" inter/ttf/
-      cp "${interStatic}/share/fonts/opentype/Inter-$weight.otf" inter/otf/
-    done
-
-    cp -r "${mplus}/." mplus/
+    mkdir -p inter motomachi
+    ln -s "${interStatic}/share/fonts/truetype" inter/ttf
+    ln -s "${interStatic}/share/fonts/opentype" inter/otf
+    ln -s "${mplus}" mplus
 
     fontforge -lang=py -script motomachi.py
     rm -rf inter mplus

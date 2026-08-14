@@ -2,5 +2,5 @@
 
 with pkgs.unstable; {
   manhattan = callPackage ./manhattan {};
-  motomachi = callPackage ./motomachi {};
+  motomachi-patched = callPackage ./motomachi {};
 }
