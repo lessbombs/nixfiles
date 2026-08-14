@@ -14,8 +14,8 @@
           inherit mylib myvars;
         };
 
-        vm-testing = mylib.mkSys {
-          hostname = "vm-testing";
+        test-client = mylib.mkSys {
+          hostname = "test-client";
           system = "x86_64-linux";
           inherit mylib myvars;
         };
