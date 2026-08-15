@@ -6,7 +6,5 @@
   services.flatpak.update.auto.enable = false;
   services.flatpak.uninstallUnmanaged = true;
 
-  services.flatpak.packages = [
-    "io.github.suchnsuch.Tangent"
-  ];
+  services.flatpak.packages = [ ];
 }

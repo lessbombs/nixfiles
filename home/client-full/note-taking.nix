@@ -1,6 +1,7 @@
-{myvars, ...}:
+{myvars, pkgs, ...}:
 
 {
+  home.packages = with pkgs; [ my.tangent ];
   
   programs = {
 
@@ -16,9 +17,6 @@
     obsidian = {
       enable = true;
     };
-
-    # todo: package tangent from source
-    # pulling from flathub for now in ./flatpak.nix
 
   };
 
