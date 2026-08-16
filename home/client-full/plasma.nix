@@ -7,6 +7,7 @@
     rose-pine-cursor
     my.manhattan
     my.motomachi-patched
+    my.mplus-fonts
   ];
 
   programs.plasma = {
