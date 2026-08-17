@@ -52,6 +52,13 @@
       };
     };
 
+    kscreenlocker = {
+      autoLock = false;
+      lockOnResume = true;
+      passwordRequiredDelay = 0;
+      timeout = 0;
+    };
+
     krunner = {
       shortcuts.launch = [ "Meta" "Search" "Alt+Space" ];
       position = "center";
@@ -113,15 +120,6 @@
               };
             };
           }
-          
-          {
-            pager = {
-              general = {
-                showWindowOutlines = false;
-                showApplicationIconsOnWindowOutlines = false;
-              };
-            };
-          }
 
           {
             digitalClock = {
@@ -136,6 +134,15 @@
                 size = 10;
               };
             }; 
+          }
+
+          {
+            pager = {
+              general = {
+                showWindowOutlines = false;
+                showApplicationIconsOnWindowOutlines = false;
+              };
+            };
           }
         ];
       }
@@ -228,6 +235,8 @@
       };
 
       kwinrc = {
+        Effect-kwin4_effect_geometry_change.Duration = 400;
+        Script-desktopchangeosd.PopupHideDelay = 200;
         Plugins = {
           kwin4_effect_geometry_changeEnabled = true;
           desktopchangeosdEnabled = true;
@@ -235,12 +244,7 @@
           screenedgeEnabled = false;
           shakecursorEnabled = false;
         };
-        Effect-kwin4_effect_geometry_change.Duration = 400;
-        Script-desktopchangeosd.PopupHideDelay = 200;
-        
       };
     };
-
-  };
-  
+  }; 
 }
