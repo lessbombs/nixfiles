@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, myvars, ... }:
 
 {
   imports = [
@@ -23,11 +23,37 @@
     };
 
     shortcuts = {
-      plasmashell."activate application launcher" = ["Alt+F1" "Meta+Shift"];
+      plasmashell."activate application launcher" = "Meta+Shift";
+      plasmashell."cycle-panels" = "Meta+Z";
+    };
+
+    kwin = {
+      cornerBarrier = true;
+      edgeBarrier = 0;
+
+      virtualDesktops = {
+        names = [
+          "Desktop 1"
+          "Desktop 2"
+          "Desktop 3"
+          "Desktop 4"
+        ];
+        number = 4;
+        rows = 2;
+      };
+
+      effects = {
+        desktopSwitching = {
+          animation = "slide";
+          navigationWrapping = false;
+        };
+        windowOpenClose.animation = "scale";
+        minimization.animation = "squash";
+      };
     };
 
     krunner = {
-      shortcuts.launch = ["Meta" "Search" "Alt+Space"];
+      shortcuts.launch = [ "Meta" "Search" "Alt+Space" ];
       position = "center";
       historyBehavior = "enableSuggestions";
     };
@@ -35,6 +61,10 @@
     panels = [
       { # Bottom bar
         location = "bottom";  
+        floating = false;
+        height = 40;
+        opacity = "adaptive";
+
         widgets = [
           {
             kickoff = {
@@ -63,7 +93,33 @@
 
           {
             systemTray = {
-              items.shown = ["org.kde.plasma.notifications"];
+              items = {
+                hidden = [
+                  "org.kde.plasma.brightness"
+                  "org.kde.plasma.clipboard"
+                  "org.kde.plasma.keyboardlayout"
+
+                  # "spotify-client"
+                  # "discord_status_icon_1"
+                ];
+                shown = [
+                  "org.kde.plasma.notifications"
+                  "org.kde.plasma.volume"
+                  "org.kde.plasma.networkmanagement"
+                  "org.kde.plasma.battery"
+                  "org.kde.plasma.bluetooth"
+                  "Fcitx"
+                ];
+              };
+            };
+          }
+          
+          {
+            pager = {
+              general = {
+                showWindowOutlines = false;
+                showApplicationIconsOnWindowOutlines = false;
+              };
             };
           }
 
@@ -74,39 +130,51 @@
                 position = "belowTime";
               };
               font = {
-                family = "Hack";
+                family = "M PLUS U";
+                weight = 600; # demibold
                 italic = true;
-                bold = true;
                 size = 10;
               };
             }; 
-          }
-
-          {
-            pager = {
-              general = {
-                showWindowOutlines = false;
-                showApplicationIconsOnWindowOutlines = false;
-              };
-            };
           }
         ];
       }
 
       { # Right panel
         location = "right";
-        # meta + z panel shortcut
+        height = 225;
+        lengthMode = "fit";
+        hiding = "dodgewindows";
+        floating = true;
+
         widgets = [
-          {
-            # media playback
-          }
+
+          "org.kde.plasma.mediacontroller"
 
           {
-            # spacer = 20
-          }
+            systemMonitor = {
+              title = "〜Dasein〜";
+              showTitle = true;
+              showLegend = true;
+              displayStyle = "org.kde.ksysguard.linechart";
+              sensors = [
+                {
+                  name = "cpu/all/averageTemperature";
+                  color = myvars.accentColor;
+                  label = "CPU Temperature";
+                }
+              ];
 
-          {
-            # temperature
+              settings = {
+                "org.kde.ksysguard.linechart/General" = {
+                  lineChartFillOpacity = 50;
+                  historyAmount = 120;
+                  rangeAutoY = false;
+                  rangeFromY = 40;
+                };
+                Appearance.updateRateLimit = 1000;
+              };
+            };
           }
         ];
       }
@@ -153,7 +221,25 @@
       };
     };
     
-    configFile."kdeglobals"."General"."AccentColor" = "146,110,228";
+    configFile = {
+      kdeglobals = {
+        General.AccentColor = myvars.accentColor;
+        KDE.AnimationDurationFactor = 0.5;
+      };
+
+      kwinrc = {
+        Plugins = {
+          kwin4_effect_geometry_changeEnabled = true;
+          desktopchangeosdEnabled = true;
+          maximizeEnabled = false;
+          screenedgeEnabled = false;
+          shakecursorEnabled = false;
+        };
+        Effect-kwin4_effect_geometry_change.Duration = 400;
+        Script-desktopchangeosd.PopupHideDelay = 200;
+        
+      };
+    };
 
   };
   
