@@ -160,7 +160,7 @@
 
           {
             systemMonitor = {
-              title = "〜Dasein〜";
+              title = "〜<i>Menschlichkeit,<br>Mündigkeit</i>〜"; 
               showTitle = true;
               showLegend = true;
               displayStyle = "org.kde.ksysguard.linechart";
