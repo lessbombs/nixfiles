@@ -1,6 +1,11 @@
 { ... }:
-
-{
+let
+  commonMountOptions = [
+    "compress=zstd:1"
+    "noatime"
+    "discard=async"
+  ];
+in {
   disko.devices.disk.main = {
     type = "disk";
     # prefer a stable /dev/disk/by-id path before running disko
@@ -34,7 +39,9 @@
             name = "crypt";
             settings = {
               allowDiscards = true;
+              bypassWorkqueues = true;
             };
+            
             initrdUnlock = true;
 
             content = {
@@ -44,41 +51,25 @@
               # unless their parent is mounted
 
               mountpoint = "/mnt/btr_pool";
-              mountOptions = [
-                "subvolid=5"
-                "compress-force=zstd:1"
-                "noatime"
-              ];
+              mountOptions = [ "subvolid=5" ] ++ commonMountOptions;
 
               subvolumes = {
                 "@snapshots" = { };
                 "@" = { 
                   mountpoint = "/";
-                  mountOptions = [
-                    "compress-force=zstd:1"
-                    "noatime"
-                  ];
+                  mountOptions = commonMountOptions;
                 };
                 "@home" = {
                   mountpoint = "/home";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
+                  mountOptions = commonMountOptions;
                 };
                 "@srv" = {
                   mountpoint = "/srv";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
+                  mountOptions = commonMountOptions;
                 };
                 "@nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [
-                    "compress-force=zstd:1"
-                    "noatime"
-                  ];
+                  mountOptions = commonMountOptions;
                 };
               };
             };
