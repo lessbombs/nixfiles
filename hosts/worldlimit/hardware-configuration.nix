@@ -1,22 +1,26 @@
-{ lib, modulesPath, ... }:
+{ config, lib, modulesPath, inputs, ... }:
 
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.framework-intel-core-ultra-series1
   ];
 
-  # Replace this file with the one generated for the target machine:
-  #   nixos-generate-config --show-hardware-config > hosts/atlas/hardware-configuration.nix
-  # The empty defaults merely allow the starter tree to evaluate on many PCs.
-  boot.initrd.availableKernelModules = lib.mkDefault [
-    "xhci_pci"
-    "nvme"
-    "usb_storage"
-    "sd_mod"
-  ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel= {
+    npu.enable = true;
+    updateMicrocode = lib.mkDefault 
+      config.hardware.enableRedistributableFirmware;
+  };
+
+  hardware.bluetooth.enable = true;
+  hardware.framework.laptop13.audioEnhancement.enable = true;
+  services.thermald.enable = true;
+  zramSwap.enable = true; # todo: prob need to look into more settings for this
+
 }

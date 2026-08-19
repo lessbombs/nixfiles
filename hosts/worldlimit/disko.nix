@@ -42,7 +42,16 @@
               extraArgs = [ "-f" ]; # Override existing partition
               # Subvolumes must set a mountpoint in order to be mounted,
               # unless their parent is mounted
-              subvolumes = { # cachyos subvols + @nix
+
+              mountpoint = "/mnt/btr_pool";
+              mountOptions = [
+                "subvolid=5"
+                "compress-force=zstd:1"
+                "noatime"
+              ];
+
+              subvolumes = {
+                "@snapshots" = { };
                 "@" = { 
                   mountpoint = "/";
                   mountOptions = [
@@ -57,36 +66,8 @@
                     "noatime" 
                   ];
                 };
-                "@root" = {
-                  mountpoint = "/root";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
-                };
                 "@srv" = {
                   mountpoint = "/srv";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
-                };
-                "@cache" = {
-                  mountpoint = "/var/cache";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
-                };
-                "@tmp" = {
-                  mountpoint = "/var/tmp";
-                  mountOptions = [ 
-                    "compress-force=zstd:1"
-                    "noatime" 
-                  ];
-                };
-                "@log" = {
-                  mountpoint = "/var/log";
                   mountOptions = [ 
                     "compress-force=zstd:1"
                     "noatime" 
