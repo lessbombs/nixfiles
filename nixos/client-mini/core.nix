@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  networking.networkmanager.enable = true;
-
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -15,14 +13,6 @@
   
   # XanMod is a kernel distro with optimizations for desktop use
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
 
   services.flatpak.enable = true;
 
