@@ -60,6 +60,11 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     helium = { # todo: replace
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
