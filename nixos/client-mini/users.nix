@@ -1,6 +1,8 @@
-{ pkgs, myvars, ... }:
+{ pkgs, myvars, lib, ... }:
 
 {
+  users.mutableUsers = false;
+
   users.users.${myvars.name} = {
     isNormalUser = true;
     description = myvars.fullname;
@@ -12,6 +14,7 @@
       "docker"
     ];
 
+    hashedPasswordFile = lib.mkDefault "/var/lib/misc/hashedLoginPassword";
   };
 
   # todo: move system shells somewhere else

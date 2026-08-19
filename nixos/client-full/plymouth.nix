@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
 boot = {
@@ -6,7 +6,7 @@ boot = {
     plymouth = {
       enable = true;
       theme = "breeze";
-      # todo: font = "${mypkgs.motomachi}/share/fonts/truetype/motomachi.ttf";
+      font = "${pkgs.my.mplus-fonts}/share/fonts/truetype/MPLUSU-SemiBold.ttf";
     };
 
     # Enable "Silent boot"
