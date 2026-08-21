@@ -11,8 +11,7 @@
     timeout = 1;
   };
   
-  # XanMod is a kernel distro with optimizations for desktop use
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.flatpak.enable = true;
 
