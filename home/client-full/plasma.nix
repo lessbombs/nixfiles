@@ -131,7 +131,7 @@
                 family = "M PLUS U";
                 weight = 600; # demibold
                 italic = true;
-                size = 10;
+                size = 9;
               };
             }; 
           }
