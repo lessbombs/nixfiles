@@ -3,7 +3,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.framework-intel-core-ultra-series1
+    inputs.nixos-hardware.nixosModules.framework-intel-core-ultra-series1
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" ];
