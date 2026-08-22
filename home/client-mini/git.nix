@@ -1,9 +1,11 @@
 { myvars, config, ... }:
-{ 
+let
+  home = config.home.homeDirectory;
+in { 
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    projects = "${config.home.homeDirectory}/repo";
+    projects = "${home}/repo";
   };
 
   programs.git = {
@@ -25,6 +27,8 @@
             signingKey = "~/.ssh/${myvars.name}/signing.pub";
           };
           gpg.ssh.allowedSignersFile = "~/.ssh/${myvars.name}/allowed_signers";
+          core.sshCommand =
+            "ssh -i ${home}/.ssh/${myvars.name}/auth -o IdentitiesOnly=yes";
         };
       }
       # work git config is written in the private repo; looks a lot like above
