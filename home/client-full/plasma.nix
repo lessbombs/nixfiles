@@ -22,6 +22,11 @@
       sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
     };
 
+    input.keyboard = {
+      options = [ "caps:swapescape" ];
+      repeatDelay = 400;
+    };
+
     shortcuts = {
       plasmashell."activate application launcher" = "Meta+Shift";
       plasmashell."cycle-panels" = "Meta+Z";
@@ -30,6 +35,11 @@
     kwin = {
       cornerBarrier = true;
       edgeBarrier = 0;
+      nightLight = {
+        enable = true;
+        mode = "constant";
+        temperature.night = 4500;
+      };
 
       virtualDesktops = {
         names = [
@@ -162,7 +172,8 @@
             systemMonitor = {
               title = "〜<i>Menschlichkeit,<br>Mündigkeit</i>〜"; 
               showTitle = true;
-              showLegend = true;
+              # causes a painful plasmashell restart on every boot
+              # showLegend = true; 
               displayStyle = "org.kde.ksysguard.linechart";
               sensors = [
                 {
@@ -173,11 +184,14 @@
               ];
 
               settings = {
-                "org.kde.ksysguard.linechart/General" = {
+                "org.kde.ksysguard.linechart/General" = { # not respected
                   lineChartFillOpacity = 50;
                   historyAmount = 120;
                   rangeAutoY = false;
                   rangeFromY = 40;
+                };
+                "org.kde.ksysguard.piechart/General" = {
+                  rangeAuto = false;
                 };
                 Appearance.updateRateLimit = 1000;
               };

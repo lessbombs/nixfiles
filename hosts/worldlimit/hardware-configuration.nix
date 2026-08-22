@@ -19,8 +19,11 @@
   };
 
   hardware.bluetooth.enable = true;
-  hardware.framework.laptop13.audioEnhancement.enable = true;
+
+  # Enable this only after initial installation and setting speakers to 100%
+  # Adds some notable latency, so not really my thing
+  hardware.framework.laptop13.audioEnhancement.enable = false;
+
   services.thermald.enable = true;
   zramSwap.enable = true; # todo: prob need to look into more settings for this
-
 }
