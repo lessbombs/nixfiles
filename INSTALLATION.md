@@ -16,9 +16,8 @@ from there you can implement the private wrapper flake with its agenix secrets m
 git clone https://github.com/lessbombs/nixfiles.git
 cd nixfiles
 
-nix flake check
-
-sudo nix run github:nix-community/disko/ -- \
+sudo nix --enable-experimental-features "flakes nix-command" \
+  run github:nix-community/disko/ -- \
   --mode destroy,format,mount --flake .#worldlimit
 
 findmnt -R /mnt
@@ -27,7 +26,8 @@ sudo ./init-pw.sh /mnt # set this pw to be the same as luks
 
 sudo nixos-install --no-root-passwd --flake .#worldlimit
 
-sudo reboot
+sudo systemctl reboot
 
 ```
 
+it could be even easier.
