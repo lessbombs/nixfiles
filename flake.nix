@@ -74,6 +74,7 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
+    inputs.qbz.url = "github:vicrodh/qbz";
   };
 }
