@@ -75,6 +75,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    inputs.qbz.url = "github:vicrodh/qbz";
+    iloader = {
+      url = "github:nab138/iloader";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 }
