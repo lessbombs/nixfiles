@@ -4,7 +4,7 @@
   outputs = inputs@{ nixpkgs, ... }:
     let
       mylib = import ./lib { inherit inputs; };
-      myvars = import ./vars;
+      myvars = import ./vars {inherit (nixpkgs) lib; };
     in {
       nixosConfigurations = {
 

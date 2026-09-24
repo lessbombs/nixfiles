@@ -172,7 +172,7 @@
             systemMonitor = {
               title = "〜<i>Menschlichkeit,<br>Mündigkeit</i>〜"; 
               showTitle = true;
-              # causes a painful plasmashell restart on every boot
+              # DON'T SET: causes a painful plasmashell restart on every boot
               # showLegend = true; 
               displayStyle = "org.kde.ksysguard.linechart";
               sensors = [

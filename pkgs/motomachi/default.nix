@@ -1,4 +1,4 @@
-{ # remember to pull from nixpkgs-unstable!
+{ # todo: fix this
   lib,
   stdenvNoCC,
   fetchgit,
