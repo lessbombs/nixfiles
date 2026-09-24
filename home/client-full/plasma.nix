@@ -13,6 +13,13 @@
     my.mplus-fonts
   ];
 
+  xdg.configFile."autostart/krunner.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=KRunner
+    Exec=krunner --daemon
+  '';
+
   programs.plasma = {
     enable = true;
     overrideConfig = true; # aiming for full reproducibility
@@ -22,14 +29,35 @@
       sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
     };
 
+    powerdevil = rec {
+      AC = {
+        autoSuspend.action = "nothing";
+        dimDisplay = { enable = true; idleTimeout = 60; };
+        turnOffDisplay.idleTimeout = 120;
+        powerButtonAction = "sleep";
+      };
+      battery = AC // {
+        autoSuspend.action = "sleep";
+        autoSuspend.idleTimeout = 120;
+        dimDisplay.idleTimeout = 30;
+        turnOffDisplay.idleTimeout = 60;
+      };
+      lowBattery = battery // {
+        autoSuspend.idleTimeout = 60;
+      };
+    };
+
     input.keyboard = {
       options = [ "caps:swapescape" ];
-      repeatDelay = 400;
+      repeatDelay = 250;
+      repeatRate = 35;
     };
 
     shortcuts = {
       plasmashell."activate application launcher" = "Meta+Shift";
       plasmashell."cycle-panels" = "Meta+Z";
+      "services/org.kde.konsole.desktop"."_launch" = "None";
+      "services/com.mitchellh.ghostty.desktop"."_launch" = "Ctrl+Alt+T";
     };
 
     kwin = {
@@ -189,6 +217,7 @@
                   historyAmount = 120;
                   rangeAutoY = false;
                   rangeFromY = 40;
+                  rangeToY = 100;
                 };
                 "org.kde.ksysguard.piechart/General" = {
                   rangeAuto = false;
@@ -258,6 +287,7 @@
           screenedgeEnabled = false;
           shakecursorEnabled = false;
         };
+        TabBox.LayoutName = "compact";
       };
     };
   }; 
