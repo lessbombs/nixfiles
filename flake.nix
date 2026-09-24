@@ -79,5 +79,11 @@
       url = "github:nab138/iloader";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    readest = {
+      url = "https://github.com/readest/readest.git";
+      type = "git";
+      submodules = true;
+    };
   };
 }

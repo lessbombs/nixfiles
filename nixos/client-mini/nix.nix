@@ -3,10 +3,14 @@
 {
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [ "nix-command" "flakes" "flake-self-attrs" ];
       auto-optimise-store = true;
       connect-timeout = 5;
       fallback = true;
+      substituters = [ "https://readest.cachix.org" ];
+      trusted-public-keys = [
+        "readest.cachix.org-1:KvKAePcZZCZB8ytFIAOGdgN3VRdmFHGRMHqMVckbt5c="
+      ];
       # todo: self-hosted substituter
     };
 
