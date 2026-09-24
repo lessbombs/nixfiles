@@ -17,6 +17,8 @@
     };
   };
 
+  programs.partition-manager.enable = true;
+
   # todo: plasma isn't respecting i18n.nix -- fix should be written here or in home/client-full/plasma.nix
 
   # unlock login + kde wallet with luks password

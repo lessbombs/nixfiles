@@ -21,6 +21,14 @@
     git
     vim
     curl
+
+    # archive
+    zip
+    xz
+    zstd
+    unzipNLS
+    p7zip
+    unrar
   ];
 
   # For a fresh 26.05 installation. On an existing machine, preserve the
