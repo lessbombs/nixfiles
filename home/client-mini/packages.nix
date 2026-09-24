@@ -8,5 +8,7 @@
     tree
     
     helium
+
+    showmethekey
   ] ++ [  ];
 }
