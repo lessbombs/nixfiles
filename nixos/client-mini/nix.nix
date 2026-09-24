@@ -15,9 +15,9 @@
     };
 
     gc = {
-      automatic = lib.mkDefault true;
-      dates = lib.mkDefault "weekly";
-      options = lib.mkDefault "--delete-older-than 7d";
+      automatic = true;
+      dates = "monthly";
+      options = "--delete-older-than 60d";
     };
 
     package = pkgs.unstable.lixPackageSets.latest.lix;
