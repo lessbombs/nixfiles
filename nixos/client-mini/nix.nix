@@ -41,6 +41,7 @@
           colmena;
       })
       inputs.helium.overlays.default 
+      inputs.nix-vscode-extensions.overlays.default
     ];
   };
 }

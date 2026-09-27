@@ -1,13 +1,7 @@
 {
-  inputs,
   pkgs,
   ...
 }:
-
-let
-  vscodeExtensions =
-    inputs.nix-vscode-extensions.extensions.${pkgs.stdenv.hostPlatform.system}.vscode-marketplace-release;
-in
 {
   home.packages = with pkgs; [
     nil
@@ -20,9 +14,10 @@ in
     mutableExtensionsDir = false;
 
     profiles.default = {
-      extensions = with vscodeExtensions; [
+      extensions = with pkgs.vscode-marketplace-release; [
         activitywatch.aw-watcher-vscode
         openai.chatgpt
+        openai.codex-audio
         jnoortheen.nix-ide
       ];
 
