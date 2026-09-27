@@ -10,5 +10,9 @@
     helium
 
     showmethekey
+
+    # audio stuff
+    spek
+    ffmpeg
   ] ++ [  ];
 }
